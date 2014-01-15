@@ -4,6 +4,15 @@
  */
 package central;
 
+import java.sql.Connection;
+import java.sql.Driver;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author SergioArispe
@@ -32,13 +41,13 @@ public class AgregarUsuario extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
         jSpinner1 = new javax.swing.JSpinner();
         jSpinner2 = new javax.swing.JSpinner();
         jSpinner3 = new javax.swing.JSpinner();
         jLabel6 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        jSpinner4 = new javax.swing.JSpinner();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -49,6 +58,11 @@ public class AgregarUsuario extends javax.swing.JFrame {
         jLabel3.setText("Fecha de Nacimiento");
 
         jButton1.setText("Crear");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Volver");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -79,13 +93,12 @@ public class AgregarUsuario extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(jLabel2))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(10, 10, 10)
                         .addComponent(jLabel3))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 223, Short.MAX_VALUE)
-                        .addComponent(jTextField2)))
+                    .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 223, Short.MAX_VALUE)
+                    .addComponent(jSpinner4))
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(69, Short.MAX_VALUE)
@@ -112,7 +125,7 @@ public class AgregarUsuario extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jSpinner4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -136,6 +149,51 @@ public class AgregarUsuario extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         this.setVisible(false);  
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        Connection connection = null;
+        Driver driver = new org.apache.derby.jdbc.ClientDriver();
+        String URLDerby = "jdbc:derby://localhost:1527/Central";
+        String user = "Central";
+        String password = "Central";
+        Statement statement = null;
+        //ResultSet resutSet = null;
+        try {
+            DriverManager.registerDriver(driver);
+            connection = DriverManager.getConnection(URLDerby, user, password);
+            String anio = "";
+            anio+=jSpinner1.getValue();
+            String mes = "";
+            mes +=jSpinner2.getValue();
+            String dia = "";
+            dia += jSpinner3.getValue();
+            if(mes.length() == 1)
+            {
+                mes = "0"+mes;
+            }
+            if(dia.length() == 1)
+            {
+                dia = "0"+dia;
+            }
+            String aux3 = anio+"-"+mes+"-"+dia;
+            String consulta = "INSERT INTO Usuario(Ci, Nombre, Fecha_Nacimiento) VALUES ("+jSpinner4.getValue()+",'"+jTextField1.getText()+"','"+aux3+"')";
+            statement = connection.createStatement();
+            statement.execute(consulta);
+            //resutSet = statement.executeQuery(consulta);
+            //while (resutSet.next()) {
+              //  ;
+            //}       
+            //resutSet.close();
+            //resutSet = null;
+            statement.close();
+            statement= null;
+            connection.close();
+            connection=null;
+        } catch (SQLException ex) {
+            Logger.getLogger(AgregarProducto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -183,7 +241,7 @@ public class AgregarUsuario extends javax.swing.JFrame {
     private javax.swing.JSpinner jSpinner1;
     private javax.swing.JSpinner jSpinner2;
     private javax.swing.JSpinner jSpinner3;
+    private javax.swing.JSpinner jSpinner4;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
 }

@@ -6,6 +6,12 @@ package central;
 
 import java.sql.Connection;
 import java.sql.Driver;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -50,6 +56,11 @@ public class AgregarProducto extends javax.swing.JFrame {
         });
 
         jButton2.setText("Volver");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -95,13 +106,39 @@ public class AgregarProducto extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         Connection connection = null;
-        //Utilizamos localhost ya que el servidor correra en nuestra propia maquina
         Driver driver = new org.apache.derby.jdbc.ClientDriver();
         String URLDerby = "jdbc:derby://localhost:1527/Central";
-        //Establecemos el usuario y la contrasena para conectarnos a la base de datos
         String user = "Central";
         String password = "Central";
+        Statement statement = null;
+        //ResultSet resutSet = null;
+        try {
+            DriverManager.registerDriver(driver);
+            connection = DriverManager.getConnection(URLDerby, user, password);
+            int aux = Integer.parseInt(jSpinner1.getValue().toString());
+            String consulta = "INSERT INTO Producto(Nombre, Precio) VALUES ('"+jTextField1.getText()+"',"+aux+")";
+            statement = connection.createStatement();
+            statement.execute(consulta);
+            //resutSet = statement.executeQuery(consulta);
+            //Recorremos el Resultset
+            //while (resutSet.next()) {
+              //  ;
+            //}
+            //resutSet.close();
+            //resutSet = null;
+            statement.close();
+            statement= null;
+            connection.close();
+            connection=null;
+        } catch (SQLException ex) {
+            Logger.getLogger(AgregarProducto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        this.setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments

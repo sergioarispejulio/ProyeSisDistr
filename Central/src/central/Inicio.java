@@ -93,7 +93,7 @@ public class Inicio extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if(jTextField1.getText().equals("Usuario") && jTextField2.getText().equals("contrasena"))
+        if(jTextField1.getText().equals("Usuario") && jTextField2.getText().equals("Contrasena"))
         {
             Principal nue = new Principal();
             nue.setVisible(true);

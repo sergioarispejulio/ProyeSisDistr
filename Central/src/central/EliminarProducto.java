@@ -4,17 +4,59 @@
  */
 package central;
 
+import java.sql.Connection;
+import java.sql.Driver;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author SergioArispe
  */
 public class EliminarProducto extends javax.swing.JFrame {
 
+    ArrayList<Producto> lista = new ArrayList<Producto>();
+    
     /**
      * Creates new form EliminarProducto
      */
     public EliminarProducto() {
         initComponents();
+        Connection connection = null;
+        Driver driver = new org.apache.derby.jdbc.ClientDriver();
+        String URLDerby = "jdbc:derby://localhost:1527/Central";
+        String user = "Central";
+        String password = "Central";
+        Statement statement = null;
+        ResultSet resutSet = null;
+        try {
+            DriverManager.registerDriver(driver);
+            connection = DriverManager.getConnection(URLDerby, user, password);
+            String consulta = "SELECT * FROM Producto";
+            statement = connection.createStatement();
+            resutSet = statement.executeQuery(consulta);
+            while (resutSet.next()) {
+                Producto nue = new Producto();
+                nue.setNro(resutSet.getInt("Nro"));
+                nue.setNombre(resutSet.getString("Nombre"));
+                nue.setPrecio(resutSet.getInt("Precio"));
+                lista.add(nue);
+                jComboBox1.addItem(nue.getNombre());
+            }       
+            resutSet.close();
+            resutSet = null;
+            statement.close();
+            statement= null;
+            connection.close();
+            connection=null;
+        } catch (SQLException ex) {
+            Logger.getLogger(AgregarProducto.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -36,8 +78,18 @@ public class EliminarProducto extends javax.swing.JFrame {
         jLabel1.setText("Seleccione Producto a Eliminar");
 
         jButton1.setText("Eliminar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Volver");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -47,15 +99,16 @@ public class EliminarProducto extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton2))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jLabel1)
                         .addGap(18, 18, 18)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18))
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton2)
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -64,19 +117,57 @@ public class EliminarProducto extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton1)
-                        .addContainerGap(18, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton2)
-                        .addContainerGap())))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        Connection connection = null;
+        Driver driver = new org.apache.derby.jdbc.ClientDriver();
+        String URLDerby = "jdbc:derby://localhost:1527/Central";
+        String user = "Central";
+        String password = "Central";
+        Statement statement = null;
+        //ResultSet resutSet = null;
+        int pos = jComboBox1.getSelectedIndex();
+        Producto sel = new Producto();
+        sel = lista.get(pos);
+        try {
+            DriverManager.registerDriver(driver);
+            connection = DriverManager.getConnection(URLDerby, user, password);
+            String consulta = "DELETE FROM Producto WHERE Nro = "+sel.getNro();
+            statement = connection.createStatement();
+            statement.execute(consulta);
+            //resutSet = statement.executeQuery(consulta);
+            //while (resutSet.next()) {
+              //  ;
+            //}       
+            
+            //Llamado para eliminar en las sucursales
+            Singleton.getSingleton().eliminarProducto_Sucursal1(sel.getNro());
+            Singleton.getSingleton().eliminarProducto_Sucursal2(sel.getNro());
+            Singleton.getSingleton().eliminarProducto_Sucursal3(sel.getNro());
+            //resutSet.close();
+            //resutSet = null;
+            statement.close();
+            statement= null;
+            connection.close();
+            connection=null;
+        } catch (SQLException ex) {
+            Logger.getLogger(AgregarProducto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments

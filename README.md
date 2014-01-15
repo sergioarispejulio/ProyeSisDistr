@@ -8,6 +8,9 @@ Si quieres probar los servicios, tienes que nombrar de la siguiente forma las BD
 -Central
 	.Central
 
-El Password y usuario es el mismo nombre de la BD
+El Password y usuario es el mismo nombre de la BD  (Escrito el 14 de Enero del 2014)
+------------------------------------------
+Creando aplicación central, 20% implementado, se conecta a BD derby y funcionan los servicios Restfull de cada sucursal
+(Escrito el 15 de Enero del 2014)
 
 
