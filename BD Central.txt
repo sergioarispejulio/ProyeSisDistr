@@ -1,0 +1,11 @@
+CREATE  TABLE Producto (
+  Nro INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
+  Nombre VARCHAR(45) ,
+  Precio INTEGER ,
+  PRIMARY KEY (Nro) );
+
+CREATE  TABLE Usuario (
+  Ci INTEGER ,
+  Nombre VARCHAR(45) ,
+  Fecha_Nacimiento VARCHAR(70) ,
+  PRIMARY KEY (Ci) );
