@@ -4,17 +4,61 @@
  */
 package central;
 
+import java.sql.Connection;
+import java.sql.Driver;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author SergioArispe
  */
 public class ModificarProducto extends javax.swing.JFrame {
 
+    
+    ArrayList<Producto> lista = new ArrayList<Producto>();
+    Producto sele = new Producto();
     /**
      * Creates new form AgregarProducto
      */
     public ModificarProducto() {
         initComponents();
+        Connection connection = null;
+        Driver driver = new org.apache.derby.jdbc.ClientDriver();
+        String URLDerby = "jdbc:derby://localhost:1527/Central";
+        String user = "Central";
+        String password = "Central";
+        Statement statement = null;
+        ResultSet resutSet = null;
+        try {
+            DriverManager.registerDriver(driver);
+            connection = DriverManager.getConnection(URLDerby, user, password);
+            String consulta = "SELECT * FROM Producto";
+            statement = connection.createStatement();
+            resutSet = statement.executeQuery(consulta);
+            while (resutSet.next()) {
+                Producto nue = new Producto();
+                nue.setNro(resutSet.getInt("Nro"));
+                nue.setNombre(resutSet.getString("Nombre"));
+                nue.setPrecio(resutSet.getInt("Precio"));
+                lista.add(nue);
+                jComboBox1.addItem(nue.getNombre());
+            }       
+            resutSet.close();
+            resutSet = null;
+            statement.close();
+            statement= null;
+            connection.close();
+            connection=null;
+        } catch (SQLException ex) {
+            Logger.getLogger(AgregarProducto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        jButton1.setVisible(false);
     }
 
     /**
@@ -42,8 +86,24 @@ public class ModificarProducto extends javax.swing.JFrame {
         jLabel2.setText("Precio");
 
         jButton1.setText("Actualizar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Volver");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
 
         jLabel3.setText("Seleccione Producto");
 
@@ -97,6 +157,48 @@ public class ModificarProducto extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        int pos = jComboBox1.getSelectedIndex();
+        sele = lista.get(pos);
+        jTextField1.setText(sele.getNombre());
+        jSpinner1.setValue(sele.getPrecio());
+        jButton1.setVisible(true);
+    }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        Connection connection = null;
+        Driver driver = new org.apache.derby.jdbc.ClientDriver();
+        String URLDerby = "jdbc:derby://localhost:1527/Central";
+        String user = "Central";
+        String password = "Central";
+        Statement statement = null;
+        //ResultSet resutSet = null;
+        try {
+            DriverManager.registerDriver(driver);
+            connection = DriverManager.getConnection(URLDerby, user, password);
+            int aux = Integer.parseInt(jSpinner1.getValue().toString());
+            String consulta = "UPDATE Producto SET Nombre = '"+jTextField1.getText()+"', Precio = "+Integer.parseInt(jSpinner1.getValue().toString())+" WHERE Nro = "+sele.getNro();
+            statement = connection.createStatement();
+            statement.execute(consulta);
+            statement.close();
+            statement= null;
+            connection.close();
+            connection=null;
+            sele.setNombre(jTextField1.getText());
+            sele.setPrecio(Integer.parseInt(jSpinner1.getValue().toString()));
+            Singleton.getSingleton().modificarProducto_Sucursal1(sele);
+            Singleton.getSingleton().modificarProducto_Sucursal2(sele);
+            Singleton.getSingleton().modificarProducto_Sucursal3(sele);
+        } catch (SQLException ex) {
+            Logger.getLogger(AgregarProducto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments

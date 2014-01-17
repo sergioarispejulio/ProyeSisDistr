@@ -12,5 +12,7 @@ El Password y usuario es el mismo nombre de la BD  (Escrito el 14 de Enero del 2
 ------------------------------------------
 Creando aplicación central, 20% implementado, se conecta a BD derby y funcionan los servicios Restfull de cada sucursal
 (Escrito el 15 de Enero del 2014)
-
+------------------------------------------
+Servicio Central funcionando, falta hacer pequeñas aplicaciones para cada sucursal y poner reportes al central
+(Escrito el 16 de Enero del 2014)
 

@@ -44,7 +44,6 @@ public class EliminarProducto extends javax.swing.JFrame {
                 Producto nue = new Producto();
                 nue.setNro(resutSet.getInt("Nro"));
                 nue.setNombre(resutSet.getString("Nombre"));
-                nue.setPrecio(resutSet.getInt("Precio"));
                 lista.add(nue);
                 jComboBox1.addItem(nue.getNombre());
             }       

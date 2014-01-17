@@ -4,17 +4,58 @@
  */
 package central;
 
+import java.sql.Connection;
+import java.sql.Driver;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author SergioArispe
  */
 public class EliminarProductoSucursal extends javax.swing.JFrame {
 
+    
+    ArrayList<Producto> lista = new ArrayList<Producto>();
     /**
      * Creates new form EliminarProductoSucursal
      */
     public EliminarProductoSucursal() {
         initComponents();
+        Connection connection = null;
+        Driver driver = new org.apache.derby.jdbc.ClientDriver();
+        String URLDerby = "jdbc:derby://localhost:1527/Central";
+        String user = "Central";
+        String password = "Central";
+        Statement statement = null;
+        ResultSet resutSet = null;
+        try {
+            DriverManager.registerDriver(driver);
+            connection = DriverManager.getConnection(URLDerby, user, password);
+            String consulta = "SELECT * FROM Producto";
+            statement = connection.createStatement();
+            resutSet = statement.executeQuery(consulta);
+            while (resutSet.next()) {
+                Producto nue = new Producto();
+                nue.setNro(resutSet.getInt("Nro"));
+                nue.setNombre(resutSet.getString("Nombre"));
+                lista.add(nue);
+                jComboBox1.addItem(nue.getNombre());
+            }       
+            resutSet.close();
+            resutSet = null;
+            statement.close();
+            statement= null;
+            connection.close();
+            connection=null;
+        } catch (SQLException ex) {
+            Logger.getLogger(AgregarProducto.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -37,11 +78,23 @@ public class EliminarProductoSucursal extends javax.swing.JFrame {
 
         jLabel1.setText("Seleccione Producto");
 
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Sucursal 1", "Sucursal 2", "Sucursal 3" }));
+
         jLabel2.setText("Seleccione Sucursal");
 
         jButton2.setText("Volver");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton1.setText("Registrar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -56,11 +109,13 @@ public class EliminarProductoSucursal extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jComboBox2, 0, 343, Short.MAX_VALUE)
                     .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 29, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 349, Short.MAX_VALUE)
-                .addComponent(jButton2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton2)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -74,14 +129,38 @@ public class EliminarProductoSucursal extends javax.swing.JFrame {
                     .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton2)
+                    .addComponent(jButton1))
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        int pos = jComboBox1.getSelectedIndex();
+        int su = jComboBox2.getSelectedIndex();
+        Producto nue = new Producto();
+        nue = lista.get(pos);
+        switch(su)
+        {
+            case 0:
+                Singleton.getSingleton().eliminarProducto_Sucursal1(nue.getNro());
+                break;
+            case 1:
+                Singleton.getSingleton().eliminarProducto_Sucursal2(nue.getNro());
+                break;
+            case 2:
+                Singleton.getSingleton().eliminarProducto_Sucursal3(nue.getNro());
+                break;
+        }
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments

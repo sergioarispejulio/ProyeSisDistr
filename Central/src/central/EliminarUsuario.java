@@ -4,17 +4,58 @@
  */
 package central;
 
+import java.sql.Connection;
+import java.sql.Driver;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author SergioArispe
  */
 public class EliminarUsuario extends javax.swing.JFrame {
 
+    
+    ArrayList<Usuario> lista = new ArrayList<Usuario>();
     /**
      * Creates new form EliminarProducto
      */
     public EliminarUsuario() {
         initComponents();
+        Connection connection = null;
+        Driver driver = new org.apache.derby.jdbc.ClientDriver();
+        String URLDerby = "jdbc:derby://localhost:1527/Central";
+        String user = "Central";
+        String password = "Central";
+        Statement statement = null;
+        ResultSet resutSet = null;
+        try {
+            DriverManager.registerDriver(driver);
+            connection = DriverManager.getConnection(URLDerby, user, password);
+            String consulta = "SELECT * FROM Usuario";
+            statement = connection.createStatement();
+            resutSet = statement.executeQuery(consulta);
+            while (resutSet.next()) {
+                Usuario nue = new Usuario();
+                nue.setCi(resutSet.getInt("Ci"));
+                nue.setNombre(resutSet.getString("Nombre"));
+                lista.add(nue);
+                jComboBox1.addItem(nue.getNombre());
+            }       
+            resutSet.close();
+            resutSet = null;
+            statement.close();
+            statement= null;
+            connection.close();
+            connection=null;
+        } catch (SQLException ex) {
+            Logger.getLogger(AgregarProducto.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -36,8 +77,18 @@ public class EliminarUsuario extends javax.swing.JFrame {
         jLabel1.setText("Seleccione Usuario a Eliminar");
 
         jButton1.setText("Eliminar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Volver");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -77,6 +128,48 @@ public class EliminarUsuario extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        Connection connection = null;
+        Driver driver = new org.apache.derby.jdbc.ClientDriver();
+        String URLDerby = "jdbc:derby://localhost:1527/Central";
+        String user = "Central";
+        String password = "Central";
+        Statement statement = null;
+        //ResultSet resutSet = null;
+        int pos = jComboBox1.getSelectedIndex();
+        Usuario sel = new Usuario();
+        sel = lista.get(pos);
+        try {
+            DriverManager.registerDriver(driver);
+            connection = DriverManager.getConnection(URLDerby, user, password);
+            String consulta = "DELETE FROM Usuario WHERE Ci = "+sel.getCi();
+            statement = connection.createStatement();
+            statement.execute(consulta);
+            //resutSet = statement.executeQuery(consulta);
+            //while (resutSet.next()) {
+              //  ;
+            //}       
+            
+            //Llamado para eliminar en las sucursales
+            Singleton.getSingleton().eliminarUsuario_Sucursal1(pos);
+            Singleton.getSingleton().eliminarUsuario_Sucursal2(sel.getCi());
+            Singleton.getSingleton().eliminarUsuario_Sucursal3(sel.getCi());
+            //resutSet.close();
+            //resutSet = null;
+            statement.close();
+            statement= null;
+            connection.close();
+            connection=null;
+        } catch (SQLException ex) {
+            Logger.getLogger(AgregarProducto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments

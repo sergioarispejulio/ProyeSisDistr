@@ -4,6 +4,11 @@
  */
 package central;
 
+import com.sun.jersey.api.client.ClientResponse;
+import com.sun.jersey.api.client.GenericType;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author SergioArispe
@@ -52,4 +57,163 @@ public class Singleton {
               client.remove(Integer.toString(ci));
           }
     
+          public void modificarUsuario_Sucursal1(Usuario nue)
+          {
+              Sucursal1_Usuario client=new Sucursal1_Usuario();
+              client.edit_XML(nue);
+          }
+          public void modificarUsuario_Sucursal2(Usuario nue)
+          {
+              Sucursal2_Usuario client=new Sucursal2_Usuario();
+              client.edit_XML(nue);
+          }
+          public void modificarUsuario_Sucursal3(Usuario nue)
+          {
+              Sucursal3_Usuario client=new Sucursal3_Usuario();
+              client.edit_XML(nue);
+          }
+          
+          public void modificarProducto_Sucursal1(Producto nue)
+          {
+              Sucursal1_Producto client=new Sucursal1_Producto();
+              client.edit_XML(nue);
+          }
+          public void modificarProducto_Sucursal2(Producto nue)
+          {
+              Sucursal2_Producto client=new Sucursal2_Producto();
+              client.edit_XML(nue);
+          }
+          public void modificarProducto_Sucursal3(Producto nue)
+          {
+              Sucursal3_Producto client=new Sucursal3_Producto();
+              client.edit_XML(nue);
+          }
+          
+          public void ponerProducto_Sucursal1(Producto nue)
+          {
+              Sucursal1_Producto client=new Sucursal1_Producto();
+              ClientResponse response= client.findAll_XML(ClientResponse.class);
+              GenericType<List<Producto>> genericType = new GenericType<List<Producto>>() {};
+              // Returns an ArrayList of Players from the web service
+              List<Producto> data= new ArrayList<Producto>();
+              data=(response.getEntity(genericType));
+              nue.setCantidad(0);
+              client.create_JSON(nue);
+          }
+          public void ponerProducto_Sucursal2(Producto nue)
+          {
+              Sucursal2_Producto client=new Sucursal2_Producto();
+              ClientResponse response= client.findAll_XML(ClientResponse.class);
+              GenericType<List<Producto>> genericType = new GenericType<List<Producto>>() {};
+              // Returns an ArrayList of Players from the web service
+              List<Producto> data= new ArrayList<Producto>();
+              data=(response.getEntity(genericType));
+              nue.setCantidad(0);
+              client.create_XML(nue);
+          }
+          public void ponerProducto_Sucursal3(Producto nue)
+          {
+              Sucursal3_Producto client=new Sucursal3_Producto();
+              ClientResponse response= client.findAll_XML(ClientResponse.class);
+              GenericType<List<Producto>> genericType = new GenericType<List<Producto>>() {};
+              // Returns an ArrayList of Players from the web service
+              List<Producto> data= new ArrayList<Producto>();
+              data=(response.getEntity(genericType));
+              nue.setCantidad(0);
+              client.create_XML(nue);
+          }
+          
+          public void ponerUsuario_Sucursal1(Usuario nue)
+          {
+              Sucursal1_Usuario client=new Sucursal1_Usuario();
+              ClientResponse response= client.findAll_XML(ClientResponse.class);
+              GenericType<List<Usuario>> genericType = new GenericType<List<Usuario>>() {};
+              // Returns an ArrayList of Players from the web service
+              List<Usuario> data= new ArrayList<Usuario>();
+              data=(response.getEntity(genericType));
+              client.create_XML(nue);
+          }
+          public void ponerUsuario_Sucursal2(Usuario nue)
+          {
+              Sucursal2_Usuario client=new Sucursal2_Usuario();
+              ClientResponse response= client.findAll_XML(ClientResponse.class);
+              GenericType<List<Usuario>> genericType = new GenericType<List<Usuario>>() {};
+              // Returns an ArrayList of Players from the web service
+              List<Usuario> data= new ArrayList<Usuario>();
+              data=(response.getEntity(genericType));
+              client.create_XML(nue);
+          }
+          public void ponerUsuario_Sucursal3(Usuario nue)
+          {
+              Sucursal3_Usuario client=new Sucursal3_Usuario();
+              ClientResponse response= client.findAll_XML(ClientResponse.class);
+              GenericType<List<Usuario>> genericType = new GenericType<List<Usuario>>() {};
+              // Returns an ArrayList of Players from the web service
+              List<Usuario> data= new ArrayList<Usuario>();
+              data=(response.getEntity(genericType));
+              client.create_XML(nue);
+          }
+          
+          public List<Usuario> ObtenerUsuario_Sucursal1(Usuario nue)
+          {
+              Sucursal1_Usuario client=new Sucursal1_Usuario();
+              ClientResponse response= client.findAll_XML(ClientResponse.class);
+              GenericType<List<Usuario>> genericType = new GenericType<List<Usuario>>() {};
+              // Returns an ArrayList of Players from the web service
+              List<Usuario> data= new ArrayList<Usuario>();
+              data=(response.getEntity(genericType));
+              return data;
+          }
+          public List<Usuario> ObtenerUsuario_Sucursal2(Usuario nue)
+          {
+              Sucursal2_Usuario client=new Sucursal2_Usuario();
+              ClientResponse response= client.findAll_XML(ClientResponse.class);
+              GenericType<List<Usuario>> genericType = new GenericType<List<Usuario>>() {};
+              // Returns an ArrayList of Players from the web service
+              List<Usuario> data= new ArrayList<Usuario>();
+              data=(response.getEntity(genericType));
+              return data;
+          }
+          public List<Usuario> ObtenerUsuario_Sucursal3(Usuario nue)
+          {
+              Sucursal3_Usuario client=new Sucursal3_Usuario();
+              ClientResponse response= client.findAll_XML(ClientResponse.class);
+              GenericType<List<Usuario>> genericType = new GenericType<List<Usuario>>() {};
+              // Returns an ArrayList of Players from the web service
+              List<Usuario> data= new ArrayList<Usuario>();
+              data=(response.getEntity(genericType));
+              return data;
+          }
+          
+          
+          public List<Producto> ObtenerProducto_Sucursal1(Usuario nue)
+          {
+              Sucursal1_Producto client=new Sucursal1_Producto();
+              ClientResponse response= client.findAll_XML(ClientResponse.class);
+              GenericType<List<Producto>> genericType = new GenericType<List<Producto>>() {};
+              // Returns an ArrayList of Players from the web service
+              List<Producto> data= new ArrayList<Producto>();
+              data=(response.getEntity(genericType));
+              return data;
+          }
+          public List<Producto> ObtenerProducto_Sucursal2(Usuario nue)
+          {
+              Sucursal2_Producto client=new Sucursal2_Producto();
+              ClientResponse response= client.findAll_XML(ClientResponse.class);
+              GenericType<List<Producto>> genericType = new GenericType<List<Producto>>() {};
+              // Returns an ArrayList of Players from the web service
+              List<Producto> data= new ArrayList<Producto>();
+              data=(response.getEntity(genericType));
+              return data;
+          }
+          public List<Producto> ObtenerProducto_Sucursal3(Usuario nue)
+          {
+              Sucursal3_Producto client=new Sucursal3_Producto();
+              ClientResponse response= client.findAll_XML(ClientResponse.class);
+              GenericType<List<Producto>> genericType = new GenericType<List<Producto>>() {};
+              // Returns an ArrayList of Players from the web service
+              List<Producto> data= new ArrayList<Producto>();
+              data=(response.getEntity(genericType));
+              return data;
+          }
 }

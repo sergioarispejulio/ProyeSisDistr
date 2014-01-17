@@ -4,17 +4,59 @@
  */
 package central;
 
+import java.sql.Connection;
+import java.sql.Driver;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author SergioArispe
  */
 public class AgregarProductoSucursal extends javax.swing.JFrame {
 
+    
+    ArrayList<Producto> lista = new ArrayList<Producto>();
     /**
      * Creates new form AgregarProductoSucursal
      */
     public AgregarProductoSucursal() {
         initComponents();
+        Connection connection = null;
+        Driver driver = new org.apache.derby.jdbc.ClientDriver();
+        String URLDerby = "jdbc:derby://localhost:1527/Central";
+        String user = "Central";
+        String password = "Central";
+        Statement statement = null;
+        ResultSet resutSet = null;
+        try {
+            DriverManager.registerDriver(driver);
+            connection = DriverManager.getConnection(URLDerby, user, password);
+            String consulta = "SELECT * FROM Producto";
+            statement = connection.createStatement();
+            resutSet = statement.executeQuery(consulta);
+            while (resutSet.next()) {
+                Producto nue = new Producto();
+                nue.setNro(resutSet.getInt("Nro"));
+                nue.setNombre(resutSet.getString("Nombre"));
+                nue.setPrecio(resutSet.getInt("Precio"));
+                lista.add(nue);
+                jComboBox1.addItem(nue.getNombre());
+            }       
+            resutSet.close();
+            resutSet = null;
+            statement.close();
+            statement= null;
+            connection.close();
+            connection=null;
+        } catch (SQLException ex) {
+            Logger.getLogger(AgregarProducto.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -37,11 +79,23 @@ public class AgregarProductoSucursal extends javax.swing.JFrame {
 
         jLabel1.setText("Seleccione Producto");
 
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Sucursal 1", "Sucursal 2", "Sucursal 3" }));
+
         jLabel2.setText("Seleccione Sucursal");
 
         jButton1.setText("Registrar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Volver");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -85,6 +139,30 @@ public class AgregarProductoSucursal extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        int pos = jComboBox1.getSelectedIndex();
+        int su = jComboBox2.getSelectedIndex();
+        Producto nue = new Producto();
+        nue = lista.get(pos);
+        switch(su)
+        {
+            case 0:
+                Singleton.getSingleton().ponerProducto_Sucursal1(nue);
+                break;
+            case 1:
+                Singleton.getSingleton().ponerProducto_Sucursal2(nue);
+                break;
+            case 2:
+                Singleton.getSingleton().ponerProducto_Sucursal3(nue);
+                break;
+        }
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments

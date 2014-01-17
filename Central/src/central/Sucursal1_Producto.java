@@ -24,7 +24,7 @@ import com.sun.jersey.api.client.WebResource;
 public class Sucursal1_Producto {
     private WebResource webResource;
     private Client client;
-    private static final String BASE_URI = "http://localhost:8080/Servicios_Sucursal1/webresources";
+    private static final String BASE_URI = "http://localhost:8080/Servicio_Sucursal1/webresources";
 
     public Sucursal1_Producto() {
         com.sun.jersey.api.client.config.ClientConfig config = new com.sun.jersey.api.client.config.DefaultClientConfig();
