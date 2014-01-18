@@ -274,7 +274,7 @@ public class Cancelar extends javax.swing.JFrame {
         try {
             DriverManager.registerDriver(driver);
             connection = DriverManager.getConnection(URLDerby, user, password);
-            String consulta = "UPDATE Compra_Cantidad CP SET Cancelado = 'true' WHERE Nro = "+selecc.getNro();
+            String consulta = "UPDATE Compra_Cantidad CP SET Cancelado = true WHERE Nro = "+selecc.getNro();
             statement = connection.createStatement();
             statement.execute(consulta);
             resutSet.close();

@@ -4,17 +4,61 @@
  */
 package aplicacion_sucursal1;
 
+import java.sql.Connection;
+import java.sql.Driver;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author SergioArispe
  */
 public class Registrar_Venta extends javax.swing.JFrame {
 
+    
+    ArrayList<Producto> lista = new ArrayList<Producto>();
+    ArrayList<Producto> todo = new ArrayList<Producto>();
+    int total;
     /**
      * Creates new form Registrar_Venta
      */
     public Registrar_Venta() {
         initComponents();
+        total = 0;
+        Connection connection = null;
+        Driver driver = new org.apache.derby.jdbc.ClientDriver();
+        String URLDerby = "jdbc:derby://localhost:1527/Sucursal1";
+        String user = "Sucursal1";
+        String password = "Sucursal1";
+        Statement statement = null;
+        ResultSet resutSet = null;
+        try {
+            DriverManager.registerDriver(driver);
+            connection = DriverManager.getConnection(URLDerby, user, password);
+            String consulta = "SELECT * FROM Producto";
+            statement = connection.createStatement();
+            resutSet = statement.executeQuery(consulta);
+            while (resutSet.next()) {
+                Producto nue = new Producto();
+                nue.setNro(resutSet.getInt("Nro"));
+                nue.setNombre(resutSet.getString("Nombre"));
+                nue.setPrecio(resutSet.getInt("Precio"));
+                nue.setCantidad(resutSet.getInt("Cantidad"));
+                todo.add(nue); 
+            }       
+            resutSet.close();
+            resutSet = null;
+            statement.close();
+            statement= null;
+            connection.close();
+            connection=null;
+        } catch (SQLException ex) {
+            //Logger.getLogger(AgregarProducto.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -38,8 +82,18 @@ public class Registrar_Venta extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jButton1.setText("Guardar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Volver");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -68,8 +122,18 @@ public class Registrar_Venta extends javax.swing.JFrame {
         });
 
         jButton3.setText("Agregar Producto");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton4.setText("Quitar Producto");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -120,6 +184,86 @@ public class Registrar_Venta extends javax.swing.JFrame {
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
+  
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        Agregar_Producto nue = new Agregar_Producto();
+        Singleton.getSingleton().obtenerlistaproducto(todo);
+        nue.setVisible(true);
+        while(nue.isVisible() == true)
+        {}
+        if(nue.nue != null)
+        {
+             lista.add(nue.nue);
+             DefaultTableModel algo = new DefaultTableModel();
+             Object data[] = {nue.nue.getNombre() ,nue.nue.getCantidad(), nue.nue.getCantidad()*nue.nue.getPrecio()};
+             algo.addRow(data);
+             jTable1.setModel(algo);
+             total = total+nue.nue.getPrecio();
+             for(int i = 0; i < todo.size(); i++)
+             {
+                 if(todo.get(i).getNro() == nue.nue.getNro())
+                 {
+                     todo.get(i).setCantidad(todo.get(i).getCantidad()-nue.nue.getCantidad());
+                     break;
+                 }
+             }
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        int pos = 0;
+        Connection connection = null;
+        Driver driver = new org.apache.derby.jdbc.ClientDriver();
+        String URLDerby = "jdbc:derby://localhost:1527/Sucursal1";
+        String user = "Sucursal1";
+        String password = "Sucursal1";
+        Statement statement = null;
+        ResultSet resutSet = null;
+        try {
+            DriverManager.registerDriver(driver);
+            connection = DriverManager.getConnection(URLDerby, user, password);
+            String consulta = "INSERT INTO Compra(Cancelado,Monto_Total,Usuario_Ci) VALUES ("+true+","+total+","+Integer.parseInt(jTextField1.getText())+")";
+            statement = connection.createStatement();
+            statement.execute(consulta);
+            consulta = "Select Nro FROM Compra ORDER BY Nro DESC LIMIT 1";
+            resutSet = statement.executeQuery(consulta);
+            while (resutSet.next()) {
+                pos = resutSet.getInt("Ci");
+            } 
+            while(lista.isEmpty() == false)
+            {
+                 Producto nue = lista.get(0);
+                 consulta = "INSERT INTO Compra_Cantidad(Compra_Nro,Producto_Nro,Cantidad) VALUES ("+pos+","+nue.getNro()+","+nue.getCantidad()+")";
+                 statement.execute(consulta);
+                 consulta = "UPDATE Producto SET Cantidad=Cantidad-"+nue.getCantidad()+" WHERE Nro = "+nue.getNro();
+                 statement.execute(consulta);
+                 lista.remove(0);
+            }
+            statement.close();
+            statement= null;
+            connection.close();
+            connection=null;
+        } catch (SQLException ex) {
+            //Logger.getLogger(AgregarProducto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        int pos = jTable1.getSelectedRow();
+        for(int i = 0; i < todo.size(); i++)
+        {
+          if(todo.get(i).getNro() == lista.get(pos).getNro())
+          {
+            todo.get(i).setCantidad(todo.get(i).getCantidad()+lista.get(pos).getCantidad());
+            break;
+          }
+        }
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
