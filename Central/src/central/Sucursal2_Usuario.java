@@ -10,7 +10,7 @@ import com.sun.jersey.api.client.WebResource;
 
 /**
  * Jersey REST client generated for REST resource:UsuarioFacadeREST
- * [servicios.usuario]<br>
+ * [servicio.usuario]<br>
  * USAGE:
  * <pre>
  *        Sucursal2_Usuario client = new Sucursal2_Usuario();
@@ -24,12 +24,12 @@ import com.sun.jersey.api.client.WebResource;
 public class Sucursal2_Usuario {
     private WebResource webResource;
     private Client client;
-    private static final String BASE_URI = "http://localhost:8080/Servicio_Sucursal2/webresources";
+    private static final String BASE_URI = "http://localhost:8080/Servicios_Sucursal2/webresources";
 
     public Sucursal2_Usuario() {
         com.sun.jersey.api.client.config.ClientConfig config = new com.sun.jersey.api.client.config.DefaultClientConfig();
         client = Client.create(config);
-        webResource = client.resource(BASE_URI).path("servicios.usuario");
+        webResource = client.resource(BASE_URI).path("servicio.usuario");
     }
 
     public void remove(String id) throws UniformInterfaceException {

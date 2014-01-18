@@ -15,4 +15,6 @@ Creando aplicación central, 20% implementado, se conecta a BD derby y funcionan 
 ------------------------------------------
 Servicio Central funcionando, falta hacer pequeñas aplicaciones para cada sucursal y poner reportes al central
 (Escrito el 16 de Enero del 2014)
-
+------------------------------------------
+De nuevo tuve que reacer los restful porque se me olvido agregarle un dato a la BD
+(Escrito el 18 de Enero del 2014)
