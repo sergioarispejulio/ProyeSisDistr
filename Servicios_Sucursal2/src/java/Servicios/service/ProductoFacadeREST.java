@@ -2,9 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package Servicio.service;
+package Servicios.service;
 
-import Servicio.Usuario;
+import Servicios.Producto;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -23,26 +23,26 @@ import javax.ws.rs.Produces;
  * @author SergioArispe
  */
 @Stateless
-@Path("servicio.usuario")
-public class UsuarioFacadeREST extends AbstractFacade<Usuario> {
+@Path("servicios.producto")
+public class ProductoFacadeREST extends AbstractFacade<Producto> {
     @PersistenceContext(unitName = "Servicios_Sucursal2PU")
     private EntityManager em;
 
-    public UsuarioFacadeREST() {
-        super(Usuario.class);
+    public ProductoFacadeREST() {
+        super(Producto.class);
     }
 
     @POST
     @Override
     @Consumes({"application/xml", "application/json"})
-    public void create(Usuario entity) {
+    public void create(Producto entity) {
         super.create(entity);
     }
 
     @PUT
     @Override
     @Consumes({"application/xml", "application/json"})
-    public void edit(Usuario entity) {
+    public void edit(Producto entity) {
         super.edit(entity);
     }
 
@@ -55,21 +55,21 @@ public class UsuarioFacadeREST extends AbstractFacade<Usuario> {
     @GET
     @Path("{id}")
     @Produces({"application/xml", "application/json"})
-    public Usuario find(@PathParam("id") Integer id) {
+    public Producto find(@PathParam("id") Integer id) {
         return super.find(id);
     }
 
     @GET
     @Override
     @Produces({"application/xml", "application/json"})
-    public List<Usuario> findAll() {
+    public List<Producto> findAll() {
         return super.findAll();
     }
 
     @GET
     @Path("{from}/{to}")
     @Produces({"application/xml", "application/json"})
-    public List<Usuario> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
+    public List<Producto> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
         return super.findRange(new int[]{from, to});
     }
 

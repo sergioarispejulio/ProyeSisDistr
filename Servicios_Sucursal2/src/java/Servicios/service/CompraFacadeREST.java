@@ -2,9 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package Servicio.service;
+package Servicios.service;
 
-import Servicio.Producto;
+import Servicios.Compra;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -23,26 +23,26 @@ import javax.ws.rs.Produces;
  * @author SergioArispe
  */
 @Stateless
-@Path("servicio.producto")
-public class ProductoFacadeREST extends AbstractFacade<Producto> {
+@Path("servicios.compra")
+public class CompraFacadeREST extends AbstractFacade<Compra> {
     @PersistenceContext(unitName = "Servicios_Sucursal2PU")
     private EntityManager em;
 
-    public ProductoFacadeREST() {
-        super(Producto.class);
+    public CompraFacadeREST() {
+        super(Compra.class);
     }
 
     @POST
     @Override
     @Consumes({"application/xml", "application/json"})
-    public void create(Producto entity) {
+    public void create(Compra entity) {
         super.create(entity);
     }
 
     @PUT
     @Override
     @Consumes({"application/xml", "application/json"})
-    public void edit(Producto entity) {
+    public void edit(Compra entity) {
         super.edit(entity);
     }
 
@@ -55,21 +55,21 @@ public class ProductoFacadeREST extends AbstractFacade<Producto> {
     @GET
     @Path("{id}")
     @Produces({"application/xml", "application/json"})
-    public Producto find(@PathParam("id") Integer id) {
+    public Compra find(@PathParam("id") Integer id) {
         return super.find(id);
     }
 
     @GET
     @Override
     @Produces({"application/xml", "application/json"})
-    public List<Producto> findAll() {
+    public List<Compra> findAll() {
         return super.findAll();
     }
 
     @GET
     @Path("{from}/{to}")
     @Produces({"application/xml", "application/json"})
-    public List<Producto> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
+    public List<Compra> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
         return super.findRange(new int[]{from, to});
     }
 

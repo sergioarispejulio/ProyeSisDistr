@@ -16,10 +16,12 @@ CREATE  TABLE Compra (
   Cancelado BOOLEAN ,
   Monto_Total INTEGER ,
   Usuario_Ci INTEGER ,
+  Fecha VARCHAR(70) ,
   PRIMARY KEY (Nro) );
 
 CREATE  TABLE Compra_Cantidad (
   Compra_Nro INTEGER ,
   Producto_Nro INTEGER ,
   Cantidad INTEGER ,
+  Total INTEGER ,
   PRIMARY KEY (Compra_Nro, Producto_Nro) );

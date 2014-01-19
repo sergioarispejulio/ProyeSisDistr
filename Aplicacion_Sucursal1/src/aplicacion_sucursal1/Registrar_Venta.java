@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
+import java.util.Date;
 
 /**
  *
@@ -216,6 +217,7 @@ public class Registrar_Venta extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         int pos = 0;
+        Date fecha1 = new Date ();
         Connection connection = null;
         Driver driver = new org.apache.derby.jdbc.ClientDriver();
         String URLDerby = "jdbc:derby://localhost:1527/Sucursal1";
@@ -226,7 +228,7 @@ public class Registrar_Venta extends javax.swing.JFrame {
         try {
             DriverManager.registerDriver(driver);
             connection = DriverManager.getConnection(URLDerby, user, password);
-            String consulta = "INSERT INTO Compra(Cancelado,Monto_Total,Usuario_Ci) VALUES ("+true+","+total+","+Integer.parseInt(jTextField1.getText())+")";
+            String consulta = "INSERT INTO Compra(Cancelado,Monto_Total,Usuario_Ci,Fecha_Nacimiento) VALUES ("+true+","+total+","+Integer.parseInt(jTextField1.getText())+",'"+fecha1.toString()+"')";
             statement = connection.createStatement();
             statement.execute(consulta);
             consulta = "Select Nro FROM Compra ORDER BY Nro DESC LIMIT 1";

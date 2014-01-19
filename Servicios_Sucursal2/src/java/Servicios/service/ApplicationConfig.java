@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package Servicio.service;
+package Servicios.service;
 
 import java.util.Set;
 import javax.ws.rs.core.Application;
@@ -36,10 +36,10 @@ public class ApplicationConfig extends Application {
      * given list with all resources defined in the project.
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
-        resources.add(Servicio.service.CompraCantidadFacadeREST.class);
-        resources.add(Servicio.service.CompraFacadeREST.class);
-        resources.add(Servicio.service.ProductoFacadeREST.class);
-        resources.add(Servicio.service.UsuarioFacadeREST.class);
+        resources.add(Servicios.service.CompraCantidadFacadeREST.class);
+        resources.add(Servicios.service.CompraFacadeREST.class);
+        resources.add(Servicios.service.ProductoFacadeREST.class);
+        resources.add(Servicios.service.UsuarioFacadeREST.class);
     }
     
 }

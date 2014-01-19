@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package Servicio;
+package Servicios;
 
 import java.io.Serializable;
 import javax.persistence.Basic;
@@ -95,7 +95,7 @@ public class Usuario implements Serializable {
 
     @Override
     public String toString() {
-        return "Servicio.Usuario[ ci=" + ci + " ]";
+        return "Servicios.Usuario[ ci=" + ci + " ]";
     }
     
 }

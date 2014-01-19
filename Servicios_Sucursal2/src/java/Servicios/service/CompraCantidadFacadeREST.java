@@ -2,10 +2,10 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package Servicio.service;
+package Servicios.service;
 
-import Servicio.CompraCantidad;
-import Servicio.CompraCantidadPK;
+import Servicios.CompraCantidad;
+import Servicios.CompraCantidadPK;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -25,7 +25,7 @@ import javax.ws.rs.core.PathSegment;
  * @author SergioArispe
  */
 @Stateless
-@Path("servicio.compracantidad")
+@Path("servicios.compracantidad")
 public class CompraCantidadFacadeREST extends AbstractFacade<CompraCantidad> {
     @PersistenceContext(unitName = "Servicios_Sucursal2PU")
     private EntityManager em;
@@ -38,7 +38,7 @@ public class CompraCantidadFacadeREST extends AbstractFacade<CompraCantidad> {
          * it is ignored in the following code.
          * Matrix parameters are used as field names to build a primary key instance.
          */
-        Servicio.CompraCantidadPK key = new Servicio.CompraCantidadPK();
+        Servicios.CompraCantidadPK key = new Servicios.CompraCantidadPK();
         javax.ws.rs.core.MultivaluedMap<String, String> map = pathSegment.getMatrixParameters();
         java.util.List<String> compraNro = map.get("compraNro");
         if (compraNro != null && !compraNro.isEmpty()) {
@@ -72,7 +72,7 @@ public class CompraCantidadFacadeREST extends AbstractFacade<CompraCantidad> {
     @DELETE
     @Path("{id}")
     public void remove(@PathParam("id") PathSegment id) {
-        Servicio.CompraCantidadPK key = getPrimaryKey(id);
+        Servicios.CompraCantidadPK key = getPrimaryKey(id);
         super.remove(super.find(key));
     }
 
@@ -80,7 +80,7 @@ public class CompraCantidadFacadeREST extends AbstractFacade<CompraCantidad> {
     @Path("{id}")
     @Produces({"application/xml", "application/json"})
     public CompraCantidad find(@PathParam("id") PathSegment id) {
-        Servicio.CompraCantidadPK key = getPrimaryKey(id);
+        Servicios.CompraCantidadPK key = getPrimaryKey(id);
         return super.find(key);
     }
 

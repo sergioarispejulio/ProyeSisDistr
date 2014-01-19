@@ -5,6 +5,7 @@
 package aplicacion_sucursal1;
 
 import java.io.Serializable;
+import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.NamedQueries;
@@ -22,11 +23,17 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "CompraCantidad.findAll", query = "SELECT c FROM CompraCantidad c"),
     @NamedQuery(name = "CompraCantidad.findByCompraNro", query = "SELECT c FROM CompraCantidad c WHERE c.compraCantidadPK.compraNro = :compraNro"),
-    @NamedQuery(name = "CompraCantidad.findByProductoNro", query = "SELECT c FROM CompraCantidad c WHERE c.compraCantidadPK.productoNro = :productoNro")})
+    @NamedQuery(name = "CompraCantidad.findByProductoNro", query = "SELECT c FROM CompraCantidad c WHERE c.compraCantidadPK.productoNro = :productoNro"),
+    @NamedQuery(name = "CompraCantidad.findByCantidad", query = "SELECT c FROM CompraCantidad c WHERE c.cantidad = :cantidad"),
+    @NamedQuery(name = "CompraCantidad.findByTotal", query = "SELECT c FROM CompraCantidad c WHERE c.total = :total")})
 public class CompraCantidad implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected CompraCantidadPK compraCantidadPK;
+    @Column(name = "CANTIDAD")
+    private Integer cantidad;
+    @Column(name = "TOTAL")
+    private Integer total;
 
     public CompraCantidad() {
     }
@@ -45,6 +52,22 @@ public class CompraCantidad implements Serializable {
 
     public void setCompraCantidadPK(CompraCantidadPK compraCantidadPK) {
         this.compraCantidadPK = compraCantidadPK;
+    }
+
+    public Integer getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(Integer cantidad) {
+        this.cantidad = cantidad;
+    }
+
+    public Integer getTotal() {
+        return total;
+    }
+
+    public void setTotal(Integer total) {
+        this.total = total;
     }
 
     @Override

@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -28,7 +29,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Compra.findByNro", query = "SELECT c FROM Compra c WHERE c.nro = :nro"),
     @NamedQuery(name = "Compra.findByCancelado", query = "SELECT c FROM Compra c WHERE c.cancelado = :cancelado"),
     @NamedQuery(name = "Compra.findByMontoTotal", query = "SELECT c FROM Compra c WHERE c.montoTotal = :montoTotal"),
-    @NamedQuery(name = "Compra.findByUsuarioCi", query = "SELECT c FROM Compra c WHERE c.usuarioCi = :usuarioCi")})
+    @NamedQuery(name = "Compra.findByUsuarioCi", query = "SELECT c FROM Compra c WHERE c.usuarioCi = :usuarioCi"),
+    @NamedQuery(name = "Compra.findByFecha", query = "SELECT c FROM Compra c WHERE c.fecha = :fecha")})
 public class Compra implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -42,6 +44,9 @@ public class Compra implements Serializable {
     private Integer montoTotal;
     @Column(name = "USUARIO_CI")
     private Integer usuarioCi;
+    @Size(max = 70)
+    @Column(name = "FECHA")
+    private String fecha;
 
     public Compra() {
     }
@@ -80,6 +85,14 @@ public class Compra implements Serializable {
 
     public void setUsuarioCi(Integer usuarioCi) {
         this.usuarioCi = usuarioCi;
+    }
+
+    public String getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
     }
 
     @Override

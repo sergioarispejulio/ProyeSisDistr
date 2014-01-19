@@ -10,7 +10,7 @@ import com.sun.jersey.api.client.WebResource;
 
 /**
  * Jersey REST client generated for REST resource:UsuarioFacadeREST
- * [servicio.usuario]<br>
+ * [servicios.usuario]<br>
  * USAGE:
  * <pre>
  *        Sucursal2_Usuario client = new Sucursal2_Usuario();
@@ -29,7 +29,7 @@ public class Sucursal2_Usuario {
     public Sucursal2_Usuario() {
         com.sun.jersey.api.client.config.ClientConfig config = new com.sun.jersey.api.client.config.DefaultClientConfig();
         client = Client.create(config);
-        webResource = client.resource(BASE_URI).path("servicio.usuario");
+        webResource = client.resource(BASE_URI).path("servicios.usuario");
     }
 
     public void remove(String id) throws UniformInterfaceException {
