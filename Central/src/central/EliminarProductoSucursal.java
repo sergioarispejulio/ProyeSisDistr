@@ -159,7 +159,9 @@ public class EliminarProductoSucursal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        this.setVisible(false);
+        this.dispose();
+        Principal p = new Principal();
+        p.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
