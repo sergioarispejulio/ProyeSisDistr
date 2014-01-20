@@ -174,9 +174,9 @@ public class mainViewCentral extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton6)
                     .addComponent(jButton5))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                 .addComponent(jButton7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton11)
@@ -191,55 +191,66 @@ public class mainViewCentral extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-       // AgregarProducto nue = new AgregarProducto();
-        //nue.setVisible(true);
+        this.dispose();
+        addProduct ap = new addProduct();
+        ap.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
-
+    
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        //AgregarUsuario nue = new AgregarUsuario();
-        //nue.setVisible(true);
+        this.dispose();
+        registerUser ru = new registerUser();
+        ru.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
-
+    
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        //EliminarProducto nue = new EliminarProducto();
-        //nue.setVisible(true);
+        this.dispose();
+        dropProduct dp = new dropProduct();
+        dp.setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
-
+    
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        //EliminarUsuario nue = new EliminarUsuario();
-       // nue.setVisible(true);
+        this.dispose();
+        dropUser du = new dropUser();
+        du.setVisible(true);
     }//GEN-LAST:event_jButton4ActionPerformed
-
+    
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        //ModificarProducto nue = new ModificarProducto();
-        //nue.setVisible(true);
+        this.dispose();
+        modifyProduct mp = new modifyProduct();
+        mp.setVisible(true);
     }//GEN-LAST:event_jButton5ActionPerformed
-
+    
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        //ModificarUsuario nue = new ModificarUsuario();
-        //nue.setVisible(true);
+        this.dispose();
+        modifyUser mu = new modifyUser();
+        mu.setVisible(true);
     }//GEN-LAST:event_jButton6ActionPerformed
-
+    
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        //AgregarProductoSucursal nue = new AgregarProductoSucursal();
-        //nue.setVisible(true);
+        this.dispose();
+        addProductToSucursal aps = new addProductToSucursal();
+        aps.setVisible(true);
+        
     }//GEN-LAST:event_jButton7ActionPerformed
-
+    
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        //AgregarUsuarioSucursal nue = new AgregarUsuarioSucursal();
-        //nue.setVisible(true);
+        this.dispose();
+        addUserToSucursal aus = new addUserToSucursal();
+        aus.setVisible(true);
     }//GEN-LAST:event_jButton8ActionPerformed
-
+    
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
-        //EliminarProductoSucursal nue = new EliminarProductoSucursal();
-        //nue.setVisible(true);
+        this.dispose();
+        dropProductFromSucursal dps = new dropProductFromSucursal();
+        dps.setVisible(true);
     }//GEN-LAST:event_jButton11ActionPerformed
-
+    
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-        //EliminarUsuarioSucursal nue = new EliminarUsuarioSucursal();
-        //nue.setVisible(true);
+        this.dispose();
+        dropUserFromSucursal dus = new dropUserFromSucursal();
+        dus.setVisible(true);
     }//GEN-LAST:event_jButton9ActionPerformed
-
+    
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
         this.dispose();
         userLogin ul = new userLogin();
