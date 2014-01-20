@@ -145,6 +145,7 @@ public class AgregarProductoSucursal extends javax.swing.JFrame {
         int su = jComboBox2.getSelectedIndex();
         Producto nue = new Producto();
         nue = lista.get(pos);
+        nue.setCantidad(0);
         switch(su)
         {
             case 0:

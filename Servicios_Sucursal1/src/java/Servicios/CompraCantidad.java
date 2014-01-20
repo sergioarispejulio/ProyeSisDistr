@@ -29,7 +29,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class CompraCantidad implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
-    protected CompraCantidadPK compraCantidadPK;
+    protected Servicios.CompraCantidadPK compraCantidadPK;
     @Column(name = "CANTIDAD")
     private Integer cantidad;
     @Column(name = "TOTAL")
@@ -38,7 +38,7 @@ public class CompraCantidad implements Serializable {
     public CompraCantidad() {
     }
 
-    public CompraCantidad(CompraCantidadPK compraCantidadPK) {
+    public CompraCantidad(Servicios.CompraCantidadPK compraCantidadPK) {
         this.compraCantidadPK = compraCantidadPK;
     }
 
@@ -46,11 +46,11 @@ public class CompraCantidad implements Serializable {
         this.compraCantidadPK = new CompraCantidadPK(compraNro, productoNro);
     }
 
-    public CompraCantidadPK getCompraCantidadPK() {
+    public Servicios.CompraCantidadPK getCompraCantidadPK() {
         return compraCantidadPK;
     }
 
-    public void setCompraCantidadPK(CompraCantidadPK compraCantidadPK) {
+    public void setCompraCantidadPK(Servicios.CompraCantidadPK compraCantidadPK) {
         this.compraCantidadPK = compraCantidadPK;
     }
 

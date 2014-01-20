@@ -97,7 +97,6 @@ public class Singleton {
               // Returns an ArrayList of Players from the web service
               List<Producto> data= new ArrayList<Producto>();
               data=(response.getEntity(genericType));
-              nue.setCantidad(0);
               client.create_JSON(nue);
           }
           public void ponerProducto_Sucursal2(Producto nue)
@@ -108,7 +107,6 @@ public class Singleton {
               // Returns an ArrayList of Players from the web service
               List<Producto> data= new ArrayList<Producto>();
               data=(response.getEntity(genericType));
-              nue.setCantidad(0);
               client.create_XML(nue);
           }
           public void ponerProducto_Sucursal3(Producto nue)
@@ -119,7 +117,6 @@ public class Singleton {
               // Returns an ArrayList of Players from the web service
               List<Producto> data= new ArrayList<Producto>();
               data=(response.getEntity(genericType));
-              nue.setCantidad(0);
               client.create_XML(nue);
           }
           
@@ -216,4 +213,67 @@ public class Singleton {
               data=(response.getEntity(genericType));
               return data;
           }
+          
+          public List<CompraCantidad> ObtenerCompraProducto_Sucursal1()
+          {
+              Sucursal1_CompraProducto client=new Sucursal1_CompraProducto();
+              ClientResponse response= client.findAll_XML(ClientResponse.class);
+              GenericType<List<CompraCantidad>> genericType = new GenericType<List<CompraCantidad>>() {};
+              // Returns an ArrayList of Players from the web service
+              List<CompraCantidad> data= new ArrayList<CompraCantidad>();
+              data=(response.getEntity(genericType));
+              return data;
+          }
+          public List<CompraCantidad> ObtenerCompraProducto_Sucursal2()
+          {
+              Sucursal2_CompraProducto client=new Sucursal2_CompraProducto();
+              ClientResponse response= client.findAll_XML(ClientResponse.class);
+              GenericType<List<CompraCantidad>> genericType = new GenericType<List<CompraCantidad>>() {};
+              // Returns an ArrayList of Players from the web service
+              List<CompraCantidad> data= new ArrayList<CompraCantidad>();
+              data=(response.getEntity(genericType));
+              return data;
+          }
+          public List<CompraCantidad> ObtenerCompraProducto_Sucursal3()
+          {
+              Sucursal3_CompraProducto client=new Sucursal3_CompraProducto();
+              ClientResponse response= client.findAll_XML(ClientResponse.class);
+              GenericType<List<CompraCantidad>> genericType = new GenericType<List<CompraCantidad>>() {};
+              // Returns an ArrayList of Players from the web service
+              List<CompraCantidad> data= new ArrayList<CompraCantidad>();
+              data=(response.getEntity(genericType));
+              return data;
+          }
+          
+          public List<Compra> ObtenerCompra_Sucursal1()
+          {
+              Sucursal1_Compra client=new Sucursal1_Compra();
+              ClientResponse response= client.findAll_XML(ClientResponse.class);
+              GenericType<List<Compra>> genericType = new GenericType<List<Compra>>() {};
+              // Returns an ArrayList of Players from the web service
+              List<Compra> data= new ArrayList<Compra>();
+              data=(response.getEntity(genericType));
+              return data;
+          }
+          public List<Compra> ObtenerCompra_Sucursal2()
+          {
+              Sucursal2_Compra client=new Sucursal2_Compra();
+              ClientResponse response= client.findAll_XML(ClientResponse.class);
+              GenericType<List<Compra>> genericType = new GenericType<List<Compra>>() {};
+              // Returns an ArrayList of Players from the web service
+              List<Compra> data= new ArrayList<Compra>();
+              data=(response.getEntity(genericType));
+              return data;
+          }
+          public List<Compra> ObtenerCompra_Sucursal3()
+          {
+              Sucursal3_Compra client=new Sucursal3_Compra();
+              ClientResponse response= client.findAll_XML(ClientResponse.class);
+              GenericType<List<Compra>> genericType = new GenericType<List<Compra>>() {};
+              // Returns an ArrayList of Players from the web service
+              List<Compra> data= new ArrayList<Compra>();
+              data=(response.getEntity(genericType));
+              return data;
+          }
+          
 }

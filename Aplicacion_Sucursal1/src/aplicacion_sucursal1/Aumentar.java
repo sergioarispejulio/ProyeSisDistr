@@ -167,15 +167,12 @@ public class Aumentar extends javax.swing.JFrame {
         String user = "Sucursal1";
         String password = "Sucursal1";
         Statement statement = null;
-        ResultSet resutSet = null;
         try {
             DriverManager.registerDriver(driver);
             connection = DriverManager.getConnection(URLDerby, user, password);
             String consulta = "UPDATE Producto SET Cantidad="+Integer.parseInt(jSpinner1.getValue().toString())+" WHERE Nro = "+sele.getNro();
             statement = connection.createStatement();
             statement.execute(consulta);    
-            resutSet.close();
-            resutSet = null;
             statement.close();
             statement= null;
             connection.close();
