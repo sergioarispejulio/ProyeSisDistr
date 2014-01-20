@@ -4,6 +4,18 @@
  */
 package PicoCoffeBreak;
 
+import java.sql.Connection;
+import java.sql.Driver;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Oscar
@@ -33,16 +45,22 @@ public class userLogin extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
         jPasswordField1 = new javax.swing.JPasswordField();
+        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("Usuario:");
+        jLabel1.setText("Nombre:");
 
-        jLabel2.setText("Contraseña:");
+        jLabel2.setText("Carnet de Identidad:");
 
         jLabel3.setText("Pico Coffe Break");
 
         jButton1.setText("Login");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Salir");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -51,6 +69,8 @@ public class userLogin extends javax.swing.JFrame {
             }
         });
 
+        jButton3.setText("Registrarse");
+
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -58,28 +78,35 @@ public class userLogin extends javax.swing.JFrame {
             .add(layout.createSequentialGroup()
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(layout.createSequentialGroup()
-                        .add(104, 104, 104)
-                        .add(jButton1)
-                        .add(38, 38, 38)
-                        .add(jButton2))
-                    .add(layout.createSequentialGroup()
                         .add(29, 29, 29)
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(jLabel2)
-                            .add(jLabel1))
-                        .add(34, 34, 34)
-                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                            .add(jLabel3)
-                            .add(jTextField1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
-                            .add(jPasswordField1))))
-                .addContainerGap(104, Short.MAX_VALUE))
+                            .add(jLabel1)
+                            .add(jButton3))
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(layout.createSequentialGroup()
+                                .add(34, 34, 34)
+                                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                                    .add(jTextField1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
+                                    .add(jPasswordField1)))
+                            .add(layout.createSequentialGroup()
+                                .add(16, 16, 16)
+                                .add(jButton1))))
+                    .add(layout.createSequentialGroup()
+                        .add(131, 131, 131)
+                        .add(jLabel3)))
+                .addContainerGap(45, Short.MAX_VALUE))
+            .add(layout.createSequentialGroup()
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .add(jButton2)
+                .add(20, 20, 20))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
-                .add(29, 29, 29)
+                .add(25, 25, 25)
                 .add(jLabel3)
-                .add(35, 35, 35)
+                .add(39, 39, 39)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel1)
                     .add(jTextField1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
@@ -90,8 +117,9 @@ public class userLogin extends javax.swing.JFrame {
                 .add(34, 34, 34)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jButton1)
-                    .add(jButton2))
-                .addContainerGap(83, Short.MAX_VALUE))
+                    .add(jButton2)
+                    .add(jButton3))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         pack();
@@ -100,6 +128,88 @@ public class userLogin extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         System.exit(0);
     }//GEN-LAST:event_jButton2ActionPerformed
+    private String user = "Central";
+    private String password = "Central";
+
+    private boolean userExists(String name, String ci) {
+        boolean answer = false;
+        ArrayList<Usuario> lista = new ArrayList<>();
+        Usuario usuario;
+        Connection connection = null;
+        Driver driver = new org.apache.derby.jdbc.ClientDriver();
+        String URLDerby = "jdbc:derby://localhost:1527/Central";
+        Statement statement = null;
+        ResultSet resultSet = null;
+        try {
+            DriverManager.registerDriver(driver);
+            connection = DriverManager.getConnection(URLDerby, user, password);
+            String consulta = "SELECT * FROM Usuario";
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(consulta);
+            while (resultSet.next()) {
+
+                usuario = new Usuario();
+                usuario.setCi(resultSet.getInt("Ci"));
+                usuario.setNombre(resultSet.getString("Nombre"));
+                usuario.setFechaNacimiento(resultSet.getString("Fecha_Nacimiento"));
+                lista.add(usuario);
+            }
+            resultSet.close();
+            resultSet = null;
+            statement.close();
+            statement = null;
+            connection.close();
+            connection = null;
+            for (Usuario usuarioActual : lista) {
+                if (name.equals(usuarioActual.getNombre()) && Integer.parseInt(ci) == usuarioActual.getCi()) {
+                    answer = true;
+                }
+            }
+        } catch (SQLException ex) {
+        }
+
+        return answer;
+    }
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        int op = 0;
+        if ("Central".equals(jTextField1.getText()) && "Central".equals(jPasswordField1.getText())) {
+            op = 1;
+        } else {
+            if ("Sucursal".equals(jTextField1.getText()) && "Sucursal".equals(jPasswordField1.getText())) {
+                op = 2;
+            } else {
+                if (userExists(jTextField1.getText(), jPasswordField1.getText())) {
+                    op = 3;
+                } else {
+                    op = 4;
+                }
+            }
+        }
+
+        switch (op) {
+            case 1:
+                this.dispose();
+                mainViewCentral mvc = new mainViewCentral();
+                mvc.setVisible(true);
+                break;
+            case 2:
+                this.dispose();
+                mainViewSucursal mvs = new mainViewSucursal();
+                mvs.setVisible(true);
+                break;
+            case 3:
+                this.dispose();
+                mainViewClients mvcl = new mainViewClients();
+                mvcl.setVisible(true);
+                break;
+            case 4:
+                JOptionPane.showMessageDialog(this, "Usuario incorrecto");
+                
+                break;
+
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -138,6 +248,7 @@ public class userLogin extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

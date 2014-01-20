@@ -31,6 +31,7 @@ public class mainViewSucursal extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -43,47 +44,61 @@ public class mainViewSucursal extends javax.swing.JFrame {
         jButton3.setText("Usuarios");
 
         jButton4.setText("Logout");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
+        jButton5.setText("Editar Perfil");
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
+                .add(15, 15, 15)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(layout.createSequentialGroup()
-                        .add(141, 141, 141)
+                        .add(114, 114, 114)
                         .add(jLabel1))
+                    .add(jButton4)
                     .add(layout.createSequentialGroup()
-                        .add(27, 27, 27)
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(jButton4)
-                            .add(layout.createSequentialGroup()
-                                .add(jButton1)
-                                .add(73, 73, 73)
-                                .add(jButton2))))
-                    .add(layout.createSequentialGroup()
-                        .add(146, 146, 146)
-                        .add(jButton3)))
-                .addContainerGap(52, Short.MAX_VALUE))
+                            .add(jButton1)
+                            .add(jButton3))
+                        .add(73, 73, 73)
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(jButton5)
+                            .add(jButton2))))
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
-                .add(27, 27, 27)
+                .add(19, 19, 19)
                 .add(jLabel1)
-                .add(30, 30, 30)
+                .add(26, 26, 26)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jButton1)
                     .add(jButton2))
                 .add(18, 18, 18)
-                .add(jButton3)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jButton3)
+                    .add(jButton5))
+                .add(18, 18, 18)
                 .add(jButton4)
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        this.dispose();
+        userLogin ul = new userLogin();
+        ul.setVisible(true);
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -124,6 +139,7 @@ public class mainViewSucursal extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }
