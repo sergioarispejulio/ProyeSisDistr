@@ -78,7 +78,6 @@ public class Singleton {
                 } catch (SQLException ex) {
                     //Logger.getLogger(AgregarProducto.class.getName()).log(Level.SEVERE, null, ex);
                 }
-              
           }
           
           public void registrarUPDATEProducto(Producto nue)

@@ -4,6 +4,9 @@
  */
 package PicoCoffeBreak;
 
+import UICentral.mainViewCentral;
+import UIClientes.mainViewClients;
+import UISucursal.mainViewSucursal;
 import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.DriverManager;
@@ -147,7 +150,6 @@ public class userLogin extends javax.swing.JFrame {
             statement = connection.createStatement();
             resultSet = statement.executeQuery(consulta);
             while (resultSet.next()) {
-
                 usuario = new Usuario();
                 usuario.setCi(resultSet.getInt("Ci"));
                 usuario.setNombre(resultSet.getString("Nombre"));
@@ -205,10 +207,9 @@ public class userLogin extends javax.swing.JFrame {
                 break;
             case 4:
                 JOptionPane.showMessageDialog(this, "Usuario incorrecto");
-                
                 break;
-
         }
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
